@@ -89,18 +89,33 @@ function tambahData() {
     jumlah
   };
 
-  transaksi.push(dataBaru);
-  simpanData();
+ transaksi.push(dataBaru);
+simpanData();
 
-  if (tipe === "pemasukan") {
-    totalSaldo += jumlah;
-  } else {
-    totalSaldo -= jumlah;
-  }
+if (tipe === "pemasukan") {
+  totalSaldo += jumlah;
+} else {
+  totalSaldo -= jumlah;
+}
 
-  saldoText.innerText = "Rp " + totalSaldo.toLocaleString("id-ID");
+saldoText.innerText = "Rp " + totalSaldo.toLocaleString("id-ID");
 
-  renderData(dataBaru);
+renderData(dataBaru);
+
+fetch("https://script.google.com/macros/s/AKfycbyLIwxESa9z93kklbHdt1DstmxnBPyuNBA8g0y47UxlVCQOKGAo6s_PpoAIZnalGw7w/exec", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify(dataBaru),
+})
+.then((res) => res.json())
+.then((data) => {
+  console.log("Berhasil masuk Sheets", data);
+})
+.catch((err) => {
+  console.error("Gagal kirim ke Sheets", err);
+});
 
   // Reset form
   document.getElementById("keterangan").value = "";
