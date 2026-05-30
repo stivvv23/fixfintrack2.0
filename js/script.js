@@ -102,14 +102,14 @@ saldoText.innerText = "Rp " + totalSaldo.toLocaleString("id-ID");
 
 renderData(dataBaru);
 
-fetch("https://script.google.com/macros/s/AKfycbyLIwxESa9z93kklbHdt1DstmxnBPyuNBA8g0y47UxlVCQOKGAo6s_PpoAIZnalGw7w/exec", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify(dataBaru),
-})
-.then((res) => res.json())
+fetch(
+  "https://script.google.com/macros/s/AKfycbwPI_erH3T0aGF6KXMCv4rW602Q2X8KPxK0sfy8Lkgk3v3CqaL2oe44yysK_AZHPkjT/exec",
+  {
+    method: "POST",
+    body: JSON.stringify(dataBaru)
+  }
+)
+.then((res) => res.text())
 .then((data) => {
   console.log("Berhasil masuk Sheets", data);
 })
